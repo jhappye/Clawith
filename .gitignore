@@ -17,7 +17,9 @@ venv/
 .gstack/
 # Runtime agent data
 backend/data/
-backend/agent_data/
+backend/agent_data/*
+!backend/agent_data/templates/
+!backend/agent_data/templates/*.md
 ss-nodes.json
 .data/
 
