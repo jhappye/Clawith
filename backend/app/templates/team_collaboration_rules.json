@@ -1,0 +1,52 @@
+{
+  "rules_version": "1.0.0",
+  "workflow_name": "coordinator_analyst_executor_reviewer",
+  "coordination_policy": {
+    "single_entry_role": "Coordinator",
+    "task_id_format": "{{project_code}}-{{date}}-{{seq}}",
+    "sla": {
+      "analysis_hours": "{{analysis_sla_hours}}",
+      "execution_hours": "{{execution_sla_hours}}",
+      "review_hours": "{{review_sla_hours}}"
+    }
+  },
+  "handoff_contract": {
+    "required_fields": [
+      "task_id",
+      "goal",
+      "acceptance_criteria",
+      "deadline",
+      "inputs",
+      "outputs"
+    ],
+    "citation_required": true,
+    "citation_format": "【来源: 文件名#章节】"
+  },
+  "state_machine": {
+    "states": ["new", "analysis", "execution", "review", "done", "blocked"],
+    "transitions": [
+      {"from": "new", "to": "analysis", "by": "Coordinator"},
+      {"from": "analysis", "to": "execution", "by": "Analyst"},
+      {"from": "execution", "to": "review", "by": "Executor"},
+      {"from": "review", "to": "done", "by": "Reviewer"},
+      {"from": "review", "to": "execution", "by": "Reviewer", "condition": "rework_required"},
+      {"from": "*", "to": "blocked", "by": "any", "condition": "blocker_detected"}
+    ]
+  },
+  "permission_boundaries": {
+    "Coordinator": {"allowed": ["assign", "reprioritize", "escalate"], "restricted": ["self_approve"]},
+    "Analyst": {"allowed": ["read_data", "publish_analysis"], "restricted": ["direct_prod_change"]},
+    "Executor": {"allowed": ["execute_tasks", "update_status"], "restricted": ["delete_critical_data"]},
+    "Reviewer": {"allowed": ["approve", "reject", "request_rework"], "restricted": ["self_execute_and_approve"]}
+  },
+  "escalation": {
+    "trigger_conditions": [
+      "analysis_timeout",
+      "execution_timeout",
+      "review_timeout",
+      "high_risk_flag"
+    ],
+    "notify": ["{{program_manager}}", "{{team_lead}}"],
+    "max_rework_rounds": "{{max_rework_rounds}}"
+  }
+}

@@ -3,7 +3,7 @@
  * and applies it to CSS custom properties. Persists to localStorage.
  */
 
-const STORAGE_KEY = 'clawith-accent-color';
+const STORAGE_KEY = 'nexusmind-accent-color';
 
 /** Convert hex to RGB */
 function hexToRgb(hex: string): [number, number, number] {
@@ -83,14 +83,14 @@ export function resetAccentColor() {
 
 /** Preset accent colors */
 export const PRESET_COLORS = [
-    { name: 'Indigo', hex: '#5e6ad2' },
-    { name: 'Teal', hex: '#0abab5' },
-    { name: 'Blue', hex: '#3b82f6' },
-    { name: 'Cyan', hex: '#06b6d4' },
-    { name: 'Emerald', hex: '#10b981' },
-    { name: 'Rose', hex: '#f3217c' },
-    { name: 'Amber', hex: '#f59e0b' },
-    { name: 'Orange', hex: '#f97316' },
+    { name: 'Nexus Indigo', hex: '#4f46e5' },
+    { name: 'Nexus Cyan', hex: '#06b6d4' },
+    { name: 'Nexus Amber', hex: '#f59e0b' },
+    { name: 'Nexus Emerald', hex: '#10b981' },
     { name: 'Violet', hex: '#8b5cf6' },
+    { name: 'Blue', hex: '#3b82f6' },
+    { name: 'Teal', hex: '#14b8a6' },
+    { name: 'Rose', hex: '#f43f5e' },
+    { name: 'Orange', hex: '#f97316' },
     { name: 'Slate', hex: '#64748b' },
 ];

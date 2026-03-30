@@ -169,6 +169,12 @@ async def lifespan(app: FastAPI):
         logger.warning(f"[startup] Agent templates seed failed: {e}")
 
     try:
+        from app.services.team_collaboration_seeder import seed_team_collaboration_templates
+        await seed_team_collaboration_templates()
+    except Exception as e:
+        logger.warning(f"[startup] Team collaboration templates seed failed: {e}")
+
+    try:
         from app.services.skill_seeder import seed_skills, push_default_skills_to_existing_agents
         await seed_skills()
         await push_default_skills_to_existing_agents()

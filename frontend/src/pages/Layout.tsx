@@ -278,8 +278,8 @@ export default function Layout() {
             <nav className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
                 <div className="sidebar-top">
                     <div className="sidebar-logo">
-                        <img src={theme === 'dark' ? '/logo-white.png' : '/logo-black.png'} alt="" style={{ width: 22, height: 22 }} />
-                        <span className="sidebar-logo-text">Clawith</span>
+                        <img src="/logo.svg" alt="NexusMind" style={{ width: 22, height: 22 }} />
+                        <span className="sidebar-logo-text">NexusMind</span>
                     </div>
 
 

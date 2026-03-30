@@ -89,6 +89,7 @@ def _ipv4_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
     return _original_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
 
 _original_getaddrinfo = socket.getaddrinfo
+NEXUSMIND_EMAIL_SIGNATURE = "\n\n— Sent via NexusMind"
 
 
 class _force_ipv4:
@@ -209,7 +210,8 @@ async def send_email(
     msg["Message-ID"] = make_msgid()
     msg["Date"] = datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
-    msg.attach(MIMEText(body, "plain", "utf-8"))
+    final_body = body if "NexusMind" in body else f"{body.rstrip()}{NEXUSMIND_EMAIL_SIGNATURE}"
+    msg.attach(MIMEText(final_body, "plain", "utf-8"))
 
     # Attach files
     if attachments and workspace_path:
@@ -388,7 +390,8 @@ async def reply_email(
         reply_msg["References"] = message_id
         reply_msg["Message-ID"] = make_msgid()
 
-        reply_msg.attach(MIMEText(body, "plain", "utf-8"))
+        final_body = body if "NexusMind" in body else f"{body.rstrip()}{NEXUSMIND_EMAIL_SIGNATURE}"
+        reply_msg.attach(MIMEText(final_body, "plain", "utf-8"))
 
         # Send
         if cfg.get("smtp_ssl", True):

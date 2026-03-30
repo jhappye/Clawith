@@ -1,0 +1,47 @@
+{
+  "trigger_examples": [
+    {
+      "name": "coordinator_daily_sync",
+      "type": "cron",
+      "config": {"expr": "0 9 * * 1-5", "timezone": "{{timezone}}"},
+      "reason": "Daily planning and dependency sync",
+      "cooldown_seconds": 300,
+      "max_fires": null,
+      "is_enabled": true
+    },
+    {
+      "name": "analysis_sla_watchdog",
+      "type": "interval",
+      "config": {"minutes": 60},
+      "reason": "Check analysis tasks approaching SLA deadline",
+      "cooldown_seconds": 300,
+      "max_fires": null,
+      "is_enabled": true
+    },
+    {
+      "name": "executor_blocker_alert",
+      "type": "poll",
+      "config": {
+        "url": "{{workflow_api}}/tasks/blocked/count",
+        "method": "GET",
+        "json_path": "$.count",
+        "operator": ">",
+        "value": 0,
+        "interval_seconds": 300
+      },
+      "reason": "Detect blocked tasks and notify coordinator",
+      "cooldown_seconds": 600,
+      "max_fires": null,
+      "is_enabled": true
+    },
+    {
+      "name": "reviewer_on_submission",
+      "type": "on_message",
+      "config": {"from_agent": "{{executor_name}}", "contains": "[SUBMIT_FOR_REVIEW]"},
+      "reason": "Start review as soon as executor submits delivery",
+      "cooldown_seconds": 60,
+      "max_fires": null,
+      "is_enabled": true
+    }
+  ]
+}

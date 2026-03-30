@@ -1696,7 +1696,7 @@ export default function EnterpriseSettings() {
                                 className="form-input"
                                 value={companyIntro}
                                 onChange={e => setCompanyIntro(e.target.value)}
-                                placeholder={`# Company Name\nClawith\n\n# About\nOpenClaw\uD83E\uDD9E For Teams\nOpen Source \u00B7 Multi-OpenClaw Collaboration\n\nOpenClaw empowers individuals.\nClawith scales it to frontier organizations.`}
+                                placeholder={`# Company Name\nNexusMind\n\n# About\nNexusMind AI Workforce Platform\nEnterprise-grade · Multi-agent collaboration\n\nNexusMind empowers every team member with autonomous AI coworkers.`}
                                 style={{
                                     minHeight: '200px', resize: 'vertical',
                                     fontFamily: 'var(--font-mono)', fontSize: '13px',

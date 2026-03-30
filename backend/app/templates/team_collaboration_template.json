@@ -1,0 +1,55 @@
+{
+  "template_id": "team_collab_v1",
+  "template_name": "NexusMind 4-Role Collaboration Team",
+  "description": "Coordinator + Analyst + Executor + Reviewer standard collaboration template.",
+  "roles": [
+    {
+      "role": "Coordinator",
+      "agent_name": "{{coordinator_name}}",
+      "soul_path": "team_roles/coordinator_soul.md",
+      "responsibilities": [
+        "goal_intake",
+        "task_decomposition",
+        "owner_assignment",
+        "progress_orchestration"
+      ]
+    },
+    {
+      "role": "Analyst",
+      "agent_name": "{{analyst_name}}",
+      "soul_path": "team_roles/analyst_soul.md",
+      "responsibilities": [
+        "data_analysis",
+        "root_cause_analysis",
+        "options_evaluation"
+      ]
+    },
+    {
+      "role": "Executor",
+      "agent_name": "{{executor_name}}",
+      "soul_path": "team_roles/executor_soul.md",
+      "responsibilities": [
+        "task_execution",
+        "delivery_packaging",
+        "status_reporting"
+      ]
+    },
+    {
+      "role": "Reviewer",
+      "agent_name": "{{reviewer_name}}",
+      "soul_path": "team_roles/reviewer_soul.md",
+      "responsibilities": [
+        "quality_gate",
+        "risk_review",
+        "acceptance_decision"
+      ]
+    }
+  ],
+  "default_relationships": [
+    {"from": "Coordinator", "to": "Analyst", "relation": "collaborator"},
+    {"from": "Coordinator", "to": "Executor", "relation": "supervisor"},
+    {"from": "Coordinator", "to": "Reviewer", "relation": "collaborator"},
+    {"from": "Analyst", "to": "Executor", "relation": "collaborator"},
+    {"from": "Reviewer", "to": "Executor", "relation": "supervisor"}
+  ]
+}
